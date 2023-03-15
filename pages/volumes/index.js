@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { introduction } from "../../lib/data";
-
+import { volumes } from "../../lib/data";
 export default function Volumes() {
   return (
     <div>
@@ -9,16 +9,14 @@ export default function Volumes() {
       <ul>
         <li>
           <Link href="/volumes/the-fellowship-of-the-ring">
-            the-fellowship-of-the-ring
+            {volumes[0].title}
           </Link>
         </li>
         <li>
-          <Link href="/volumes/the-two-towers">the-two-towers</Link>
+          <Link href="/volumes/the-two-towers">{volumes[1].title}</Link>
         </li>
         <li>
-          <Link href="/volumes/the-return-of-the-king">
-            the-return-of-the-king
-          </Link>
+          <Link href="/volumes/the-return-of-the-king">{volumes[2].title}</Link>
         </li>
       </ul>
 
