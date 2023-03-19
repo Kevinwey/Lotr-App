@@ -3,6 +3,22 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { volumes } from "../../lib/data";
 import Image from "next/image";
+import StyledContainer from "../../components/StyledContainer";
+import StyledArticle from "../../components/StyledArticle";
+import StyledSection from "../../components/StyledSection";
+import StyledHeadline from "../../components/StyledHeadline";
+import StyledIntroduction from "../../components/StyledIntroduction";
+import StyledBooks from "../../components/StyledBooks";
+import StyledListElement from "../../components/StyledListElement";
+import StyledOrdinal from "../../components/StyledOrdinal";
+import StyledTitle from "../../components/StyledTitle";
+import Chevron from "../../icons/chevron-left.svg";
+import Next from "../../icons/arrow-right.svg";
+import Previous from "../../icons/arrow-left.svg";
+import StyledAllVolumesLink from "../../components/StyledAllVolumesLink";
+import StyledNavBar from "../../components/StyledNavbar";
+import StyledLink from "../../components/StyledLink";
+import StyledNextName from "../../components/StyledNextName";
 
 export default function LotrMovies() {
   const router = useRouter();
@@ -18,33 +34,51 @@ export default function LotrMovies() {
     return null;
   }
 
-  const { title, description, cover, books } = volume;
+  const { title, description, cover, books, color } = volume;
 
   return (
-    <>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <ul>
-        {books.map(({ ordinal, title }) => {
-          return (
-            <Fragment key={title}>
-              <li>{ordinal}</li>
-              <li>{title}</li>
-            </Fragment>
-          );
-        })}
-      </ul>
-      <Image src={cover} alt={`Volume ${title}`} width={140} height={230} />
-      {volumeIndex > 0 ? (
-        <button>
-          <Link href={`/volumes/${previousVolume.slug}`}>Previous Volume</Link>
-        </button>
-      ) : null}
-      {volumeIndex < 2 ? (
-        <button>
-          <Link href={`/volumes/${nextVolume.slug}`}>Next Volume</Link>
-        </button>
-      ) : null}
-    </>
+    <StyledArticle>
+      <StyledAllVolumesLink href={"/volumes"}>
+        <Chevron />
+        All Volumes
+      </StyledAllVolumesLink>
+      <StyledSection>
+        <StyledHeadline>{title}</StyledHeadline>
+        <StyledIntroduction>{description}</StyledIntroduction>
+      </StyledSection>
+      <StyledContainer color={color}>
+        <StyledBooks>
+          {books.map(({ ordinal, title }) => {
+            return (
+              <Fragment key={title}>
+                <StyledListElement>
+                  <StyledOrdinal>{ordinal}</StyledOrdinal>
+                </StyledListElement>
+                <StyledListElement>
+                  <StyledTitle>{title}</StyledTitle>
+                </StyledListElement>
+              </Fragment>
+            );
+          })}
+        </StyledBooks>
+        <Image src={cover} alt={`Volume ${title}`} width={140} height={230} />
+      </StyledContainer>
+      <StyledNavBar>
+        {volumeIndex > 0 ? (
+          <StyledLink direction="left" href={`/volumes/${previousVolume.slug}`}>
+            <Previous />
+            <i>Previous Volume</i>
+            {`${previousVolume.title}`}
+          </StyledLink>
+        ) : null}
+        {volumeIndex < 2 ? (
+          <StyledLink direction="right" href={`/volumes/${nextVolume.slug}`}>
+            <StyledNextName> Next Volume</StyledNextName>
+            {`${nextVolume.title}`}
+            <Next />
+          </StyledLink>
+        ) : null}
+      </StyledNavBar>
+    </StyledArticle>
   );
 }
