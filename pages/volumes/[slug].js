@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { Fragment } from "react";
 import { volumes } from "../../lib/data";
 import Image from "next/image";
@@ -18,7 +17,7 @@ import Previous from "../../icons/arrow-left.svg";
 import StyledAllVolumesLink from "../../components/StyledAllVolumesLink";
 import StyledNavBar from "../../components/StyledNavbar";
 import StyledLink from "../../components/StyledLink";
-import StyledNextName from "../../components/StyledNextName";
+import StyledName from "../../components/StyledNextName";
 
 export default function LotrMovies() {
   const router = useRouter();
@@ -67,14 +66,18 @@ export default function LotrMovies() {
         {volumeIndex > 0 ? (
           <StyledLink direction="left" href={`/volumes/${previousVolume.slug}`}>
             <Previous />
-            <i>Previous Volume</i>
-            {`${previousVolume.title}`}
+            <div>
+              <StyledName>Previous Volume</StyledName>
+              {`${previousVolume.title}`}
+            </div>
           </StyledLink>
         ) : null}
         {volumeIndex < 2 ? (
           <StyledLink direction="right" href={`/volumes/${nextVolume.slug}`}>
-            <StyledNextName> Next Volume</StyledNextName>
-            {`${nextVolume.title}`}
+            <div>
+              <StyledName> Next Volume</StyledName>
+              {`${nextVolume.title}`}
+            </div>
             <Next />
           </StyledLink>
         ) : null}
